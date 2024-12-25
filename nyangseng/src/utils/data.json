@@ -1,0 +1,108 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "text": "우리 냥이는 어떤 성격인가요?",
+      "options": [
+        { "id": "a", "text": "활발하고 장난기 많음", "next": 2 },
+        { "id": "b", "text": "조용하고 온순함", "next": 3 },
+        { "id": "c", "text": "도도하고 시크함", "next": 4 }
+      ]
+    },
+    {
+      "id": 2,
+      "text": "냥이가 좋아하는 놀이는?",
+      "options": [
+        { "id": "a", "text": "공놀이", "next": 5 },
+        { "id": "b", "text": "숨바꼭질", "next": 5 },
+        { "id": "c", "text": "레이저 포인터", "next": 6 }
+      ]
+    },
+    {
+      "id": 3,
+      "text": "냥이가 좋아하는 공간은?",
+      "options": [
+        { "id": "a", "text": "따뜻한 햇볕 아래", "next": 7 },
+        { "id": "b", "text": "조용한 구석", "next": 7 },
+        { "id": "c", "text": "높은 곳", "next": 8 }
+      ]
+    },
+    {
+      "id": 4,
+      "text": "냥이가 가장 좋아하는 간식은?",
+      "options": [
+        { "id": "a", "text": "츄르", "next": 9 },
+        { "id": "b", "text": "참치", "next": 9 },
+        { "id": "c", "text": "닭가슴살", "next": 10 }
+      ]
+    },
+    {
+      "id": 5,
+      "text": "결과 1",
+      "options": [{ "id": "a", "result": "result1" }]
+    },
+    {
+      "id": 6,
+      "text": "결과 2",
+      "options": [{ "id": "a", "result": "result2" }]
+    },
+    {
+      "id": 7,
+      "text": "결과 3",
+      "options": [{ "id": "a", "result": "result3" }]
+    },
+    {
+      "id": 8,
+      "text": "결과 4",
+      "options": [{ "id": "a", "result": "result4" }]
+    },
+    {
+      "id": 9,
+      "text": "결과 5",
+      "options": [{ "id": "a", "result": "result5" }]
+    },
+    {
+      "id": 10,
+      "text": "결과 6",
+      "options": [{ "id": "a", "result": "result6" }]
+    }
+  ],
+  "results": [
+    {
+      "id": "result1",
+      "title": "전생의 장난꾸러기",
+      "description": "당신의 냥이는 전생에 장난을 좋아하던 아기 원숭이였을지도 몰라요!",
+      "image": "/images/result1.png"
+    },
+    {
+      "id": "result2",
+      "title": "전생의 날쌘돌이",
+      "description": "당신의 냥이는 전생에 빠른 발을 가진 사냥꾼이었을지도 몰라요!",
+      "image": "/images/result2.png"
+    },
+    {
+      "id": "result3",
+      "title": "전생의 평화주의자",
+      "description": "당신의 냥이는 전생에 한가로이 낮잠을 즐기던 나무늘보였을지도 몰라요!",
+      "image": "/images/result3.png"
+    },
+    {
+      "id": "result4",
+      "title": "전생의 높은곳을 좋아하는 수리",
+      "description": "당신의 냥이는 전생에 하늘을 자유로이 날아다니던 수리였을지도 몰라요!",
+      "image": "/images/result4.png"
+    },
+    {
+      "id": "result5",
+      "title": "환생의 츄르를 좋아하는 냥이",
+      "description": "당신의 냥이는 환생에도 역시 츄르를 좋아하는 냥이일거에요!",
+      "image": "/images/result5.png"
+    },
+    {
+      "id": "result6",
+      "title": "환생의 닭가슴살을 좋아하는 냥이",
+      "description": "당신의 냥이는 환생에도 역시 닭가슴살을 좋아하는 냥이일거에요!",
+      "image": "/images/result6.png"
+    }
+  ]
+}

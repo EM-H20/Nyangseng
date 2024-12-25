@@ -1,18 +1,20 @@
-// src/pages/index.tsx
-
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import logo from "../../public/images/logo.png"; // 로고 이미지 경로에 맞춰 수정
 import logoHover from "../../public/images/logo_hover.png"; // 호버 로고 이미지 경로에 맞춰 수정
+import data from "@/utils/data.json"; // data.json import
 
 export default function Home() {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false); // 로고 호버 상태 관리
 
   const handleStartClick = () => {
-    router.push("/question/1"); // 첫 번째 질문 페이지로 이동
+    const firstQuestion = data.questions[0];
+    if (firstQuestion) {
+      router.push(`/question/${firstQuestion.id}`);
+    }
   };
 
   const handleLogoClick = () => {
@@ -39,6 +41,8 @@ export default function Home() {
             width={150}
             height={150}
             className="mb-4 transition-all duration-300"
+            priority
+            style={{ width: "auto", height: "auto" }}
           />
         </div>
         <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
