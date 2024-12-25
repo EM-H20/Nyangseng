@@ -1,5 +1,3 @@
-// src/pages/result/[id].tsx
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -31,10 +29,6 @@ const ResultPage: React.FC = () => {
 
   const { title, description, image } = currentResult;
 
-  const handleRestartClick = () => {
-    router.push("/question/1");
-  };
-
   return (
     <div className="bg-sky-100 min-h-screen flex flex-col items-center justify-center p-8">
       <Image
@@ -46,17 +40,6 @@ const ResultPage: React.FC = () => {
       />
       <h1 className="text-2xl font-bold text-gray-800 mb-2">{title}</h1>
       <p className="text-gray-700 mb-4 text-center">{description}</p>
-      <div className="flex space-x-4">
-        <button className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">
-          공유하기
-        </button>
-        <button
-          className="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
-          onClick={handleRestartClick}
-        >
-          다시 하기
-        </button>
-      </div>
     </div>
   );
 };

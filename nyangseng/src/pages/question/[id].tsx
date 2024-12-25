@@ -31,7 +31,6 @@ const QuestionPage: React.FC = () => {
         (q) => q.id === Number(id)
       ) as Question;
       setCurrentQuestion(question);
-      // 프로그레스 바 진행률 계산
       const questionIndex = data.questions.findIndex(
         (q) => q.id === Number(id)
       );
@@ -55,8 +54,8 @@ const QuestionPage: React.FC = () => {
   if (!currentQuestion) {
     return <div>Loading...</div>;
   }
-
   const { text, options } = currentQuestion;
+  const isLastQuestion = options.some((option) => option.result);
 
   return (
     <div className="bg-sky-100 min-h-screen flex flex-col items-center justify-center">
@@ -65,13 +64,15 @@ const QuestionPage: React.FC = () => {
         {text}
       </h1>
       <div className="flex flex-col items-center space-y-2 w-48">
-        {options.map((option: Option) => (
+        {options.map((option) => (
           <button
             key={option.id}
-            className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
+            className={`bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 ${
+              isLastQuestion ? "mt-8 py-3 px-6" : ""
+            }`}
             onClick={() => handleOptionClick(option.next, option.result)}
           >
-            {option.text}
+            {isLastQuestion ? "결과 확인하러 가기" : option.text}
           </button>
         ))}
       </div>
