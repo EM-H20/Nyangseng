@@ -82,7 +82,7 @@ export default function Home() {
         </div>
         {/* h1: 페이지 제목 */}
         <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-          나의 냥이는 전생에 무엇이었을까?
+          나의 냥이는 어떤 생이었을까?
         </h1>
         {/* p: 페이지 설명 */}
         <p className="text-gray-600 mb-8 text-center px-4">
