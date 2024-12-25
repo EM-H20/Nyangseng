@@ -31,12 +31,20 @@ const QuestionPage: React.FC = () => {
         (q) => q.id === Number(id)
       ) as Question;
       setCurrentQuestion(question);
+
       const questionIndex = data.questions.findIndex(
         (q) => q.id === Number(id)
       );
       const totalQuestions = data.questions.filter((q) => !q.result).length;
-      const progressPercentage = ((questionIndex + 1) / totalQuestions) * 100;
-      setProgress(progressPercentage);
+      const isLastQuestion =
+        question && question.options.some((option) => option.result);
+
+      if (isLastQuestion) {
+        setProgress(100); // 마지막 질문이면 프로그레스 바 100%
+      } else {
+        const progressPercentage = ((questionIndex + 1) / totalQuestions) * 100;
+        setProgress(progressPercentage);
+      }
     }
   }, [id]);
 
@@ -50,13 +58,11 @@ const QuestionPage: React.FC = () => {
       router.push(`/question/${next}`);
     }
   };
-
   if (!currentQuestion) {
     return <div>Loading...</div>;
   }
   const { text, options } = currentQuestion;
   const isLastQuestion = options.some((option) => option.result);
-
   return (
     <div className="bg-sky-100 min-h-screen flex flex-col items-center justify-center">
       <ProgressBar progress={progress} />
@@ -64,7 +70,7 @@ const QuestionPage: React.FC = () => {
         {text}
       </h1>
       <div className="flex flex-col items-center space-y-2 w-48">
-        {options.map((option) => (
+        {options.map((option: Option) => (
           <button
             key={option.id}
             className={`bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 ${
