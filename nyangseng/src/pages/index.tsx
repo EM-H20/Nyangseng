@@ -33,8 +33,8 @@ export default function Home() {
 
   // handleLogoClick 함수 정의: 로고 클릭 시 호출
   const handleLogoClick = () => {
-    // router.reload: 현재 페이지 새로고침
-    router.reload();
+    // router.push를 사용하여 "/nyangs" 페이지로 이동
+    router.push("/nyangs");
   };
 
   return (
