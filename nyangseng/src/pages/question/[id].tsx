@@ -31,6 +31,14 @@ const QuestionPage: React.FC = () => {
   const [progress, setProgress] = useState(0);
   // 선택한 타입들을 저장하는 state입니다. 초기값은 빈 배열입니다.
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  // 마지막 질문인지 여부를 저장하는 state입니다.
+  const [isLastQuestion, setIsLastQuestion] = useState(false);
+  // 결과 확인 버튼 표시 여부를 저장하는 state입니다.
+  const [showResultButton, setShowResultButton] = useState(false);
+  // 마지막 질문의 선택 여부를 저장하는 state입니다.
+  const [lastOptionSelected, setLastOptionSelected] = useState(false);
+  // 마지막 질문 텍스트를 저장하는 state입니다.
+  const [lastQuestionText, setLastQuestionText] = useState<string | null>(null);
 
   // useEffect hook을 사용하여 컴포넌트가 마운트되거나 id가 변경될 때 실행되는 코드를 정의합니다.
   useEffect(() => {
@@ -52,31 +60,50 @@ const QuestionPage: React.FC = () => {
       const progressPercentage = ((questionIndex + 1) / totalQuestions) * 100;
       // 계산된 진행률로 프로그레스 바 상태를 업데이트합니다.
       setProgress(progressPercentage);
+
+      // 현재 질문이 마지막 질문인지 확인하고 state 업데이트
+      setIsLastQuestion(Number(id) === totalQuestions);
+      // 마지막 질문일 경우 "냥생 뭐였니?" 텍스트로 설정하고, showResultButton, lastOptionSelected 초기화
+      if (Number(id) === totalQuestions) {
+        setLastQuestionText("냥생 뭐였니?");
+      } else {
+        setLastQuestionText(null);
+      }
     }
+    // 컴포넌트가 unmount 될 때 상태 초기화
+    return () => {
+      setShowResultButton(false);
+      setLastOptionSelected(false);
+    };
   }, [id]); // id가 변경될 때마다 useEffect hook을 다시 실행합니다.
 
   // 옵션 클릭 시 실행되는 핸들러 함수입니다.
   const handleOptionClick = (type: string) => {
     // 선택한 type을 selectedTypes 배열에 추가합니다.
     setSelectedTypes((prevTypes) => [...prevTypes, type]);
-
-    // 현재 질문이 마지막 질문인지 확인합니다.
+    // 마지막 질문일 경우 결과 확인 버튼을 표시하고, 아닐경우 다음 질문으로 이동
     if (Number(id) === data.questions.length) {
-      // 마지막 질문일 경우 결과 계산 로직을 수행합니다.
-      // data.results 배열에서 selectedTypes의 모든 타입을 포함하는 결과를 찾습니다.
-      const result = data.results.find((r) =>
-        [...selectedTypes, type].every((type) => r.types.includes(type))
-      );
-      // 결과가 존재하면 결과 페이지로 이동합니다.
-      if (result) {
-        router.push(`/result/${result.id}`);
-      } else {
-        // 결과가 없을 경우 예외 결과 페이지로 이동합니다.
-        router.push(`/result/result-not-found`);
-      }
+      setShowResultButton(true);
+      setLastOptionSelected(true); // 마지막 질문의 옵션 선택 여부 true
     } else {
-      // 마지막 질문이 아닐 경우 다음 질문 페이지로 이동합니다.
       router.push(`/question/${Number(id) + 1}`);
+    }
+  };
+
+  // 결과 확인 버튼 클릭 시 실행되는 핸들러 함수입니다.
+  const handleResultClick = () => {
+    // 마지막 질문일 경우 결과 계산 로직을 수행합니다.
+    // data.results 배열에서 selectedTypes의 모든 타입을 포함하는 결과를 찾습니다.
+    const result = data.results.find((r) =>
+      selectedTypes.every((type) => r.types.includes(type))
+    );
+
+    // 결과가 존재하면 결과 페이지로 이동합니다.
+    if (result) {
+      router.push(`/result/${result.id}`);
+    } else {
+      // 결과가 없을 경우 예외 결과 페이지로 이동합니다.
+      router.push(`/result/result-not-found`);
     }
   };
 
@@ -84,8 +111,13 @@ const QuestionPage: React.FC = () => {
   if (!currentQuestion) {
     return <div>Loading...</div>;
   }
-  // 현재 질문의 텍스트와 옵션을 추출합니다.
-  const { text, options } = currentQuestion;
+
+  // 현재 질문의 텍스트를 설정하고, 마지막 질문일 경우 lastQuestionText 상태값을 사용합니다.
+  const questionText =
+    isLastQuestion && showResultButton ? "냥생 뭐였니?" : currentQuestion.text;
+
+  // 현재 질문의 옵션을 추출합니다.
+  const { options } = currentQuestion;
 
   // 컴포넌트의 UI를 반환합니다.
   return (
@@ -94,21 +126,31 @@ const QuestionPage: React.FC = () => {
       <ProgressBar progress={progress} />
       {/* 질문 텍스트 */}
       <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-        {text}
+        {questionText}
       </h1>
       {/* 옵션 버튼들을 감싸는 div */}
       <div className="flex flex-col items-center space-y-2 w-48">
-        {/* 옵션들을 map 함수를 사용하여 반복하여 출력합니다. */}
-        {options.map((option: Option) => (
-          <button
-            key={option.id} // 각 버튼에 고유한 key를 제공합니다.
-            className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
-            onClick={() => handleOptionClick(option.type)} // 옵션 클릭 시 핸들러 함수 실행
-          >
-            {option.text}
-          </button>
-        ))}
+        {/* 마지막 질문의 옵션을 선택하지 않았을 경우 옵션들을 출력 */}
+        {!lastOptionSelected &&
+          options.map((option: Option) => (
+            <button
+              key={option.id} // 각 버튼에 고유한 key를 제공합니다.
+              className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
+              onClick={() => handleOptionClick(option.type)} // 옵션 클릭 시 핸들러 함수 실행
+            >
+              {option.text}
+            </button>
+          ))}
       </div>
+      {/* 마지막 질문이고 showResultButton이 true일 경우 결과 확인 버튼을 표시 */}
+      {isLastQuestion && showResultButton && (
+        <button
+          onClick={handleResultClick}
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 mt-4"
+        >
+          결과 확인하러 가기
+        </button>
+      )}
     </div>
   );
 };
