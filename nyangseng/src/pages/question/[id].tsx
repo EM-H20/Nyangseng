@@ -134,8 +134,9 @@ const QuestionPage: React.FC = () => {
         {!lastOptionSelected &&
           options.map((option: Option) => (
             <button
-              key={option.id} // 각 버튼에 고유한 key를 제공합니다.
-              className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
+              key={option.id}
+              className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-300 break-words"
+              style={{ width: "300px" }}
               onClick={() => handleOptionClick(option.type)} // 옵션 클릭 시 핸들러 함수 실행
             >
               {option.text}
@@ -146,7 +147,8 @@ const QuestionPage: React.FC = () => {
       {isLastQuestion && showResultButton && (
         <button
           onClick={handleResultClick}
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 mt-4"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-300 mt-4"
+          style={{ width: "300px" }}
         >
           결과 확인하러 가기
         </button>
