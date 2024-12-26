@@ -104,14 +104,14 @@
       "title": "전생의 신비로운 마법사",
       "description": "당신의 냥이는 전생에 신비로운 마법을 부리는 강력한 마법사였을지도 몰라요!",
       "image": "/images/result2.png",
-      "types": ["A", "D", "G", "K", "M", "P", "S", "W", "Y", "2"]
+      "types": ["B", "F", "I", "K", "M", "Q", "U", "W", "0", "2"]
     },
     {
       "id": "result3",
       "title": "전생의 강력한 마왕",
       "description": "당신의 냥이는 전생에 세상을 지배하려 했던 강력한 마왕이었을지도 몰라요!",
       "image": "/images/result3.png",
-      "types": ["A", "D", "G", "L", "O", "P", "S", "X", "Y", "3"]
+      "types": ["A", "D", "H", "L", "O", "P", "S", "X", "Y", "3"]
     },
     {
       "id": "result4",
@@ -125,161 +125,161 @@
       "title": "전생의 지혜로운 현자",
       "description": "당신의 냥이는 전생에 지혜롭고 현명한 현자였을지도 몰라요!",
       "image": "/images/result5.png",
-      "types": ["B", "E", "H", "K", "N", "Q", "T", "W", "Z", "2"]
+      "types": ["A", "E", "G", "K", "N", "Q", "T", "W", "Z", "2"]
     },
     {
       "id": "result6",
       "title": "전생의 강력한 드래곤",
       "description": "당신의 냥이는 전생에 강력한 힘을 가진 드래곤이었을지도 몰라요!",
       "image": "/images/result6.png",
-      "types": ["B", "E", "H", "L", "O", "Q", "T", "X", "Z", "3"]
+      "types": ["B", "F", "I", "L", "O", "P", "U", "X", "0", "3"]
     },
     {
       "id": "result7",
       "title": "전생의 명예로운 기사",
       "description": "당신의 냥이는 전생에 명예를 중시하는 기사였을지도 몰라요!",
       "image": "/images/result7.png",
-      "types": ["C", "F", "I", "J", "O", "R", "U", "V", "0", "1"]
+      "types": ["C", "D", "I", "J", "M", "Q", "S", "V", "0", "1"]
     },
     {
       "id": "result8",
       "title": "전생의 재빠른 도적",
       "description": "당신의 냥이는 전생에 재빠르고 영리한 도적이었을지도 몰라요!",
       "image": "/images/result8.png",
-      "types": ["C", "F", "I", "K", "M", "P", "U", "W", "0", "2"]
+      "types": ["B", "F", "H", "K", "M", "P", "U", "W", "Z", "2"]
     },
     {
       "id": "result9",
       "title": "전생의 아름다운 음유시인",
       "description": "당신의 냥이는 전생에 아름다운 선율로 사람들을 매료시킨 음유시인이였을지도 몰라요!",
       "image": "/images/result9.png",
-      "types": ["C", "F", "I", "L", "N", "Q", "U", "X", "0", "3"]
+      "types": ["C", "E", "I", "L", "N", "Q", "T", "X", "0", "3"]
     },
     {
       "id": "result10",
       "title": "환생의 부잣집 도련님",
       "description": "당신의 냥이는 환생하여 부잣집에서 호화로운 삶을 누릴지도 몰라요!",
       "image": "/images/result10.png",
-      "types": ["A", "D", "H", "J", "M", "Q", "S", "X", "Y", "1"]
+      "types": ["A", "F", "H", "J", "M", "Q", "S", "X", "Y", "1"]
     },
     {
       "id": "result11",
       "title": "환생의 평범한 서민",
       "description": "당신의 냥이는 환생하여 평범하지만 행복한 삶을 살아갈지도 몰라요!",
       "image": "/images/result11.png",
-      "types": ["A", "E", "G", "L", "O", "R", "T", "V", "Z", "2"]
+      "types": ["B", "E", "G", "L", "O", "R", "T", "V", "Z", "2"]
     },
     {
       "id": "result12",
       "title": "환생의 왕족",
       "description": "당신의 냥이는 왕족으로 태어나 세상을 다스릴지도 몰라요!",
       "image": "/images/result12.png",
-      "types": ["A", "F", "I", "K", "N", "P", "U", "W", "0", "3"]
+      "types": ["C", "F", "I", "K", "N", "Q", "S", "W", "0", "3"]
     },
     {
       "id": "result13",
       "title": "환생의 모험가",
       "description": "당신의 냥이는 환생하여 새로운 모험을 떠날지도 몰라요!",
       "image": "/images/result13.png",
-      "types": ["B", "D", "G", "J", "N", "P", "T", "X", "Y", "1"]
+      "types": ["B", "D", "G", "J", "M", "P", "T", "X", "Y", "1"]
     },
     {
       "id": "result14",
       "title": "환생의 예술가",
       "description": "당신의 냥이는 환생하여 예술적인 재능을 꽃피울지도 몰라요!",
       "image": "/images/result14.png",
-      "types": ["B", "E", "I", "K", "M", "R", "S", "V", "Z", "2"]
+      "types": ["A", "E", "H", "K", "N", "Q", "T", "V", "Z", "2"]
     },
     {
       "id": "result15",
       "title": "환생의 수완 좋은 상인",
       "description": "당신의 냥이는 환생하여 장사에 능한 수완 좋은 상인으로 다시 태어날지도 몰라요!",
       "image": "/images/result15.png",
-      "types": ["B", "F", "H", "L", "M", "Q", "U", "W", "0", "3"]
+      "types": ["C", "D", "I", "L", "O", "P", "U", "W", "0", "3"]
     },
     {
       "id": "result16",
       "title": "환생의 연구자",
       "description": "당신의 냥이는 환생하여 세상을 이롭게하는 연구자로 태어날지도 몰라요!",
       "image": "/images/result16.png",
-      "types": ["C", "D", "G", "K", "O", "Q", "S", "W", "Y", "1"]
+      "types": ["A", "D", "G", "J", "N", "Q", "S", "W", "Y", "1"]
     },
     {
       "id": "result17",
       "title": "환생의 강력한 무사",
       "description": "당신의 냥이는 환생하여 강력한 무술 실력을 가진 무사로 태어날지도 몰라요!",
       "image": "/images/result17.png",
-      "types": ["C", "E", "H", "J", "N", "R", "T", "X", "Z", "2"]
+      "types": ["C", "E", "H", "K", "O", "R", "T", "X", "Z", "2"]
     },
     {
       "id": "result18",
       "title": "환생의 성직자",
       "description": "당신의 냥이는 환생하여 사람들을 치유하고 돕는 성직자로 다시 태어날지도 몰라요!",
       "image": "/images/result18.png",
-      "types": ["C", "F", "I", "L", "O", "P", "U", "V", "0", "3"]
+      "types": ["B", "F", "I", "L", "M", "P", "U", "V", "0", "3"]
     },
     {
       "id": "result19",
       "title": "인간형의 아름다운 엘프",
       "description": "당신의 냥이가 인간이 된다면 아름다운 외모와 뛰어난 능력을 가진 엘프의 모습일지도 몰라요!",
       "image": "/images/result19.png",
-      "types": ["A", "E", "I", "J", "M", "R", "T", "W", "0", "1"]
+      "types": ["A", "E", "I", "J", "M", "R", "T", "W", "Z", "1"]
     },
     {
       "id": "result20",
       "title": "인간형의 귀여운 수인",
       "description": "당신의 냥이가 인간이 된다면 동물과 인간의 모습을 모두 가진 수인의 모습일지도 몰라요!",
       "image": "/images/result20.png",
-      "types": ["A", "F", "H", "K", "N", "Q", "S", "X", "Z", "2"]
+      "types": ["B", "F", "H", "K", "N", "Q", "S", "X", "Y", "2"]
     },
     {
       "id": "result21",
       "title": "인간형의 정의로운 마법소녀",
       "description": "당신의 냥이가 인간이 된다면 정의를 위해 싸우는 마법소녀의 모습일지도 몰라요!",
       "image": "/images/result21.png",
-      "types": ["A", "F", "G", "J", "O", "P", "U", "V", "Y", "3"]
+      "types": ["C", "F", "G", "J", "O", "P", "U", "V", "0", "3"]
     },
     {
       "id": "result22",
       "title": "인간형의 순수한 천사",
       "description": "당신의 냥이가 인간이 된다면 순수하고 아름다운 천사의 모습일지도 몰라요!",
       "image": "/images/result22.png",
-      "types": ["B", "D", "H", "J", "O", "R", "U", "W", "Z", "1"]
+      "types": ["A", "D", "H", "K", "M", "R", "S", "W", "Z", "1"]
     },
     {
       "id": "result23",
       "title": "인간형의 매혹적인 악마",
       "description": "당신의 냥이가 인간이 된다면 매혹적이고 위험한 악마의 모습일지도 몰라요!",
       "image": "/images/result23.png",
-      "types": ["B", "D", "I", "K", "M", "P", "T", "V", "Y", "2"]
+      "types": ["B", "E", "I", "L", "N", "Q", "T", "X", "Y", "2"]
     },
     {
       "id": "result24",
       "title": "인간형의 용감한 용사",
       "description": "당신의 냥이가 인간이 된다면 용감하고 정의로운 인간 용사의 모습일지도 몰라요!",
       "image": "/images/result24.png",
-      "types": ["B", "E", "G", "K", "N", "Q", "U", "X", "0", "3"]
+      "types": ["C", "D", "G", "K", "O", "P", "U", "V", "0", "3"]
     },
     {
       "id": "result25",
       "title": "인간형의 지혜로운 마법사",
       "description": "당신의 냥이가 인간이 된다면 지혜롭고 강력한 인간 마법사의 모습일지도 몰라요!",
       "image": "/images/result25.png",
-      "types": ["C", "D", "H", "L", "M", "P", "S", "W", "0", "1"]
+      "types": ["A", "F", "H", "L", "M", "Q", "S", "W", "Y", "1"]
     },
     {
       "id": "result26",
       "title": "인간형의 인기 아이돌",
       "description": "당신의 냥이가 인간이 된다면 많은 사람들에게 사랑받는 아이돌의 모습일지도 몰라요!",
       "image": "/images/result26.png",
-      "types": ["C", "E", "I", "L", "N", "R", "S", "V", "Y", "2"]
+      "types": ["B", "E", "I", "J", "N", "R", "S", "V", "Z", "2"]
     },
     {
       "id": "result27",
       "title": "인간형의 운동선수",
       "description": "당신의 냥이가 인간이 된다면 뛰어난 운동 능력을 가진 운동 선수의 모습일지도 몰라요!",
       "image": "/images/result27.png",
-      "types": ["C", "F", "G", "J", "M", "Q", "T", "W", "Z", "3"]
+      "types": ["C", "F", "G", "K", "O", "Q", "T", "W", "0", "3"]
     },
     {
       "id": "result-not-found",

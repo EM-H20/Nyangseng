@@ -10,6 +10,7 @@ nyangseng/
 │   ├── pages/
 │   │   ├── _app.tsx
 │   │   ├── index.tsx
+│   │   ├── nyangs.tsx
 │   │   ├── question/
 │   │   │   └── [id].tsx
 │   │   └── result/
