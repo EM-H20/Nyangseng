@@ -39,6 +39,7 @@ const QuestionPage: React.FC = () => {
   const [lastOptionSelected, setLastOptionSelected] = useState(false);
   // 마지막 질문 텍스트를 저장하는 state입니다.
   const [lastQuestionText, setLastQuestionText] = useState<string | null>(null);
+  const [questionIndex, setQuestionIndex] = useState<number>(0);
 
   // useEffect hook을 사용하여 컴포넌트가 마운트되거나 id가 변경될 때 실행되는 코드를 정의합니다.
   useEffect(() => {
@@ -54,13 +55,14 @@ const QuestionPage: React.FC = () => {
       const questionIndex = data.questions.findIndex(
         (q) => q.id === Number(id)
       );
+      setQuestionIndex(questionIndex + 1);
       // 모든 질문의 총 개수를 구합니다.
       const totalQuestions = data.questions.length;
       // 프로그레스 바의 진행률을 계산합니다.
-      const progressPercentage = ((questionIndex + 1) / totalQuestions) * 100;
+      const progressPercentage =
+        questionIndex === 0 ? 0 : ((questionIndex + 1) / totalQuestions) * 100; // 첫 질문에서 0%
       // 계산된 진행률로 프로그레스 바 상태를 업데이트합니다.
       setProgress(progressPercentage);
-
       // 현재 질문이 마지막 질문인지 확인하고 state 업데이트
       setIsLastQuestion(Number(id) === totalQuestions);
       // 마지막 질문일 경우 "냥생 뭐였니?" 텍스트로 설정하고, showResultButton, lastOptionSelected 초기화
@@ -76,7 +78,6 @@ const QuestionPage: React.FC = () => {
       setLastOptionSelected(false);
     };
   }, [id]); // id가 변경될 때마다 useEffect hook을 다시 실행합니다.
-
   // 옵션 클릭 시 실행되는 핸들러 함수입니다.
   const handleOptionClick = (type: string) => {
     // 선택한 type을 selectedTypes 배열에 추가합니다.
@@ -97,7 +98,6 @@ const QuestionPage: React.FC = () => {
     const result = data.results.find((r) =>
       selectedTypes.every((type) => r.types.includes(type))
     );
-
     // 결과가 존재하면 결과 페이지로 이동합니다.
     if (result) {
       router.push(`/result/${result.id}`);
@@ -115,15 +115,24 @@ const QuestionPage: React.FC = () => {
   // 현재 질문의 텍스트를 설정하고, 마지막 질문일 경우 lastQuestionText 상태값을 사용합니다.
   const questionText =
     isLastQuestion && showResultButton ? "냥생 뭐였니?" : currentQuestion.text;
-
   // 현재 질문의 옵션을 추출합니다.
   const { options } = currentQuestion;
+  // 전체 질문 수
+  const totalQuestions = data.questions.length;
 
   // 컴포넌트의 UI를 반환합니다.
   return (
     <div className="bg-sky-100 min-h-screen flex flex-col items-center justify-center">
       {/* 프로그레스 바 컴포넌트 */}
-      <ProgressBar progress={progress} />
+      <div className="mb-4 w-[80%]">
+        <div className="text-xl font-semibold text-gray-700 mb-2 text-center">
+          {questionIndex} / {totalQuestions}
+        </div>
+        <ProgressBar
+          progress={progress}
+          isLastQuestion={isLastQuestion && showResultButton}
+        />
+      </div>
       {/* 질문 텍스트 */}
       <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
         {questionText}
