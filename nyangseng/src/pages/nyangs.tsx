@@ -35,7 +35,30 @@ const NyangsPage = () => {
         pointerEvents: "auto",
       }}
     >
-      <h1>다양한 냥이들</h1>
+      <div
+        className="bg-gradient-to-r from-sky-100 to-sky-200 py-8 text-center relative"
+        style={{
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <h1
+          className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-800 mb-4 relative z-10"
+          style={{
+            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
+          }}
+        >
+          다양한 냥이들
+        </h1>
+        {/* 배경 이미지 추가를 원할 경우
+              <div className="absolute inset-0 bg-cover bg-center opacity-40"
+                style={{ backgroundImage: 'url(/images/nyangs_bg.jpg)'}}
+              >
+            </div> */}
+        {/* 아이콘 또는 일러스트 예시
+            <span className="inline-block ml-2">
+            <img src="/icons/cat_icon.png" alt="고양이 아이콘" className="h-8 w-8"/>
+            </span> */}
+      </div>
       <div className="flex flex-wrap justify-center">
         {results.map((result) => (
           <div
