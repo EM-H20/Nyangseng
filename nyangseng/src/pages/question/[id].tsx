@@ -39,7 +39,7 @@ const QuestionPage: React.FC = () => {
   // 마지막 질문의 선택 여부를 저장하는 state입니다.
   const [lastOptionSelected, setLastOptionSelected] = useState(false);
   // 마지막 질문 텍스트를 저장하는 state입니다.
-  const [lastQuestionText, setLastQuestionText] = useState<string | null>(null);
+  // const [lastQuestionText, setLastQuestionText] = useState<string | null>(null); // 제거
   const [questionIndex, setQuestionIndex] = useState<number>(0);
 
   // useEffect hook을 사용하여 컴포넌트가 마운트되거나 id가 변경될 때 실행되는 코드를 정의합니다.
@@ -67,11 +67,11 @@ const QuestionPage: React.FC = () => {
       // 현재 질문이 마지막 질문인지 확인하고 state 업데이트
       setIsLastQuestion(Number(id) === totalQuestions);
       // 마지막 질문일 경우 "냥생 뭐였니?" 텍스트로 설정하고, showResultButton, lastOptionSelected 초기화
-      if (Number(id) === totalQuestions) {
-        setLastQuestionText("냥생 뭐였니?");
-      } else {
-        setLastQuestionText(null);
-      }
+      // if (Number(id) === totalQuestions) { // 제거
+      //     setLastQuestionText("냥생 뭐였니?"); // 제거
+      // } else { // 제거
+      //     setLastQuestionText(null); // 제거
+      // } // 제거
     }
     // 컴포넌트가 unmount 될 때 상태 초기화
     return () => {

@@ -307,13 +307,6 @@ const ResultPage = () => {
         </div>
         {/* 버튼 컨테이너 */}
         <div className="mt-4 flex justify-center space-x-2 px-6 py-2">
-          {/* 다시 하기 버튼 */}
-          <button
-            onClick={() => router.push("/question/1")}
-            className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
-          >
-            다시 하기
-          </button>
           {/* 공유하기 버튼 */}
           <button
             onClick={handleShare}
@@ -321,12 +314,19 @@ const ResultPage = () => {
           >
             공유하기
           </button>
+          {/* 다시 하기 버튼 */}
+          <button
+            onClick={() => router.push("/question/1")}
+            className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
+          >
+            다시하기
+          </button>
           {/* 결과 저장 버튼 */}
           <button
             onClick={handleSaveImage}
             className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
           >
-            결과 저장
+            결과저장
           </button>
         </div>
         {/* 히든 냥이 페이지 버튼 */}
