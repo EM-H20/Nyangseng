@@ -261,22 +261,22 @@ const ResultPage = () => {
         </div>
         <div className="mt-4 flex justify-center space-x-2 px-6 py-2">
           <button
-            onClick={() => router.push("/question/1")}
-            className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
-          >
-            다시 하기
-          </button>
-          <button
             onClick={handleShare}
             className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
           >
             공유하기
           </button>
           <button
+            onClick={() => router.push("/question/1")}
+            className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
+          >
+            다시하기
+          </button>
+          <button
             onClick={handleSaveImage}
             className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
           >
-            결과 저장
+            결과저장
           </button>
         </div>
         <div className="flex flex-col items-center mt-2 px-6 py-2">

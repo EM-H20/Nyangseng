@@ -269,10 +269,10 @@
     },
     {
       "id": "result26",
-      "title": "인간형의 인기 아이돌",
-      "description": "당신의 냥이가 인간이 된다면 많은 사람들에게 사랑받는 아이돌의 모습일지도 몰라요!",
+      "title": "인간형의 인기 배우",
+      "description": "당신의 냥이가 인간이 된다면 많은 사람들에게 사랑받는 배우의 모습일지도 몰라요!",
       "image": "/images/result26.png",
-      "types": ["B", "E", "I", "J", "N", "R", "S", "V", "Z", "2"]
+      "types": ["A", "E", "G", "J", "M", "P", "T", "X", "Y", "3"]
     },
     {
       "id": "result27",
@@ -284,7 +284,7 @@
     {
       "id": "result-not-found",
       "title": "냥생 미스터리!",
-      "description": "당신의 냥이의 전생과 환생은 잘 모르지만 귀여운 냥이인건 확실합니다!",
+      "description": "당신의 냥이의 전생, 환생과 인간형은 잘 모르지만 귀여운 냥이인건 확실합니다!",
       "image": "/images/default.png",
       "types": []
     }
