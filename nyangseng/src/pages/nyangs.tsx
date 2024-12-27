@@ -1,7 +1,7 @@
 // src/pages/nyangs.tsx
-
 import { useState, useEffect } from "react"; // React 훅 import
 import data from "@/utils/data.json"; // 데이터 파일 import
+import Head from "next/head";
 
 // 결과 데이터 타입 정의
 interface ResultType {
@@ -26,6 +26,11 @@ const NyangsPage = () => {
     }
   }, []); // 빈 배열은 컴포넌트가 처음 렌더링 될때만 실행하도록 함
 
+  useEffect(() => {
+    // Head 컴포넌트를 사용하여 페이지 title을 업데이트합니다.
+    document.title = `냥생뭐했니 - 히든냥이`;
+  }, []);
+
   // 마우스 우클릭, 드래그 방지 함수
   const handlePreventDefault = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault(); // 기본 이벤트 동작 방지
@@ -45,6 +50,9 @@ const NyangsPage = () => {
         pointerEvents: "auto", // 포인터 이벤트 활성화
       }}
     >
+      <Head>
+        <title>냥생뭐했니 - 히든냥이</title>
+      </Head>
       {/* 배경색과 그림자가 있는 헤더 */}
       <div
         className="bg-gradient-to-r from-sky-100 to-sky-200 py-8 text-center relative" // 배경색 및 padding, 가운데 정렬, 상대적 위치

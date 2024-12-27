@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import data from "@/utils/data.json";
 import ProgressBar from "@/components/ProgressBar";
 import React from "react";
+import Head from "next/head";
 
 // Option 인터페이스 정의: 질문의 선택지를 나타냅니다.
 interface Option {
@@ -78,6 +79,16 @@ const QuestionPage: React.FC = () => {
       setLastOptionSelected(false);
     };
   }, [id]); // id가 변경될 때마다 useEffect hook을 다시 실행합니다.
+
+  // useEffect hook을 사용하여 currentQuestion이 변경될 때 실행되는 코드를 정의합니다.
+  useEffect(() => {
+    // currentQuestion이 존재하면 실행합니다.
+    if (currentQuestion) {
+      // Head 컴포넌트를 사용하여 페이지 title을 업데이트합니다.
+      document.title = `냥생뭐했니 - 질문`;
+    }
+  }, [currentQuestion]); // currentQuestion이 변경될 때마다 useEffect hook을 다시 실행합니다.
+
   // 옵션 클릭 시 실행되는 핸들러 함수입니다.
   const handleOptionClick = (type: string) => {
     // 선택한 type을 selectedTypes 배열에 추가합니다.
@@ -123,6 +134,9 @@ const QuestionPage: React.FC = () => {
   // 컴포넌트의 UI를 반환합니다.
   return (
     <div className="bg-sky-100 min-h-screen flex flex-col items-center justify-center">
+      <Head>
+        <title>냥생뭐했니 - 질문</title>
+      </Head>
       {/* 프로그레스 바 컴포넌트 */}
       <div className="mb-4 w-[80%]">
         <div className="text-xl font-semibold text-gray-700 mb-2 text-center">

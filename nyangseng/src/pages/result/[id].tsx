@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"; // React 훅 import
 import { useRouter } from "next/router"; // Next.js 라우터 import
 import data from "@/utils/data.json"; // 데이터 파일 import
+import Head from "next/head";
 
 // 결과 데이터 타입 정의
 interface Result {
@@ -37,6 +38,15 @@ const ResultPage = () => {
       );
     }
   }, [id]); // id 값이 변경될 때마다 실행
+
+  // useEffect hook을 사용하여 currentResult가 변경될 때 실행되는 코드를 정의합니다.
+  useEffect(() => {
+    // currentResult가 존재하면 실행합니다.
+    if (currentResult) {
+      // Head 컴포넌트를 사용하여 페이지 title을 업데이트합니다.
+      document.title = `냥생뭐했니 - 결과`;
+    }
+  }, [currentResult]); // currentResult가 변경될 때마다 useEffect hook을 다시 실행합니다.
 
   // 결과 데이터가 없는 경우 로딩 화면 표시
   if (!currentResult) {
@@ -278,6 +288,9 @@ const ResultPage = () => {
   // 결과 페이지 UI 반환
   return (
     <div className="bg-sky-100 min-h-screen flex flex-col items-center justify-center text-center">
+      <Head>
+        <title>냥생뭐했니 - 결과</title>
+      </Head>
       {/* 결과 카드 */}
       <div className="max-w-md bg-white rounded-xl shadow-md overflow-hidden">
         {/* 결과 이미지 */}
