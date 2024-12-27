@@ -1,6 +1,6 @@
 // src/pages/question/[id].tsx
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import data from "@/utils/data.json";
 import ProgressBar from "@/components/ProgressBar";
@@ -11,7 +11,7 @@ import Head from "next/head";
 interface Option {
   id: string; // 옵션의 고유 ID
   text: string; // 옵션의 텍스트 내용
-  type: string; // 옵션의 타입 (결과 연결에 사용)
+  type?: string; // 옵션의 타입 (결과 연결에 사용) - 선택 사항으로 변경
 }
 
 // Question 인터페이스 정의: 질문을 나타냅니다.
@@ -19,6 +19,14 @@ interface Question {
   id: number; // 질문의 고유 ID
   text: string; // 질문의 텍스트 내용
   options: Option[]; // 질문의 선택지 배열
+}
+
+interface Result {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  types: string[]; // 결과에 연결된 타입들
 }
 
 // QuestionPage 컴포넌트: 질문 페이지를 담당하는 React 컴포넌트입니다.
@@ -144,7 +152,7 @@ const QuestionPage: React.FC = () => {
   const handleResultClick = () => {
     // 마지막 질문일 경우 결과 계산 로직을 수행합니다.
     // data.results 배열에서 selectedTypes의 모든 타입을 포함하는 결과를 찾습니다.
-    const result = data.results.find((r) =>
+    const result = data.results.find((r: Result) =>
       selectedTypes.every((type) => r.types.includes(type))
     );
     // 결과가 존재하면 결과 페이지로 이동합니다.
@@ -200,7 +208,7 @@ const QuestionPage: React.FC = () => {
               key={option.id}
               className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-300 break-words"
               style={{ width: "300px" }}
-              onClick={() => handleOptionClick(option.type)} // 옵션 클릭 시 핸들러 함수 실행
+              onClick={() => handleOptionClick(option.type ?? "")} // 옵션 클릭 시 핸들러 함수 실행
             >
               {option.text}
             </button>

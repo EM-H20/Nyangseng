@@ -1,89 +1,74 @@
 // src/pages/result/[id].tsx
 
-import { useState, useEffect, useRef } from "react"; // React 훅 import
-import { useRouter } from "next/router"; // Next.js 라우터 import
-import data from "@/utils/data.json"; // 데이터 파일 import
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
+import data from "@/utils/data.json";
 import Head from "next/head";
+import Image from "next/image";
 
 // 결과 데이터 타입 정의
 interface Result {
-  id: string; // 결과 ID
-  title: string; // 결과 제목
-  description: string; // 결과 설명
-  image: string; // 결과 이미지 URL
-  types: string[]; // 결과 타입 (현재 사용하지 않음)
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  types: string[];
 }
 
-// 결과 페이지 컴포넌트
 const ResultPage = () => {
-  const router = useRouter(); // Next.js 라우터 인스턴스
-  const { id } = router.query; // URL에서 id 추출
-  const [currentResult, setCurrentResult] = useState<Result | null>(null); // 현재 결과 상태 변수
-  const imageRef = useRef<HTMLImageElement | null>(null); // 이미지 참조 변수
-  const cornerRadius = 15; // 캔버스 테두리 둥글기 값
-  const footerText = "냥생뭐였니"; // Footer 문구 추가
-  const logoUrl = "/images/logo.png"; // 로고 이미지 경로
+  const router = useRouter();
+  const { id } = router.query;
+  const [currentResult, setCurrentResult] = useState<Result | null>(null);
+  const imageRef = useRef<HTMLImageElement | null>(null);
+  const cornerRadius = 15;
+  const footerText = "냥생뭐였니";
+  const logoUrl = "/images/logo.png";
 
-  // 컴포넌트가 마운트될 때 실행되는 useEffect 훅
   useEffect(() => {
-    // id 값이 존재하는 경우
     if (id) {
-      // 데이터 파일에서 현재 id에 해당하는 결과 찾기
-      const result = data.results.find((result) => result.id === id);
-      // 찾은 결과를 현재 결과 상태로 설정
+      const result = data.results.find((result) => result.id === id) as Result;
+
       setCurrentResult(
-        result || // 결과가 존재하면 해당 결과 설정
-          data.results.find((result) => result.id === "result-not-found") || // 결과가 없으면 "result-not-found" 결과 설정 (예외처리)
-          null // 결과가 없으면 null 설정
+        result ||
+          (data.results.find(
+            (result) => result.id === "result-not-found"
+          ) as Result) ||
+          null
       );
-      // 결과페이지 진입 시 현재 페이지를 history에 replace하여 뒤로가기시 popstate 이벤트가 발생하도록 합니다.
       history.replaceState(null, "", location.href);
     }
-  }, [id]); // id 값이 변경될 때마다 실행
+  }, [id]);
 
-  // useEffect hook을 사용하여 currentResult가 변경될 때 실행되는 코드를 정의합니다.
   useEffect(() => {
-    // currentResult가 존재하면 실행합니다.
     if (currentResult) {
-      // Head 컴포넌트를 사용하여 페이지 title을 업데이트합니다.
       document.title = `냥생뭐했니 - 결과`;
     }
-  }, [currentResult]); // currentResult가 변경될 때마다 useEffect hook을 다시 실행합니다.
+  }, [currentResult]);
 
-  // 뒤로가기 감지 및 처리
   useEffect(() => {
-    // 뒤로가기 이벤트 핸들러 함수
     const handlePopstate = () => {
-      // 뒤로가기 버튼 클릭 시, 시작 페이지로 이동
       router.replace("/");
     };
-
-    // popstate 이벤트 리스너 추가
     window.addEventListener("popstate", handlePopstate);
 
-    // 컴포넌트 언마운트 시 이벤트 리스너 제거
     return () => {
       window.removeEventListener("popstate", handlePopstate);
     };
   }, [router]);
 
-  // 결과 데이터가 없는 경우 로딩 화면 표시
   if (!currentResult) {
     return <div>Loading...</div>;
   }
+  const { title, description, image } = currentResult;
 
-  const { title, description, image } = currentResult; // 현재 결과에서 제목, 설명, 이미지 URL 추출
-
-  // 이미지 저장 함수
   const handleSaveImage = () => {
     if (imageRef.current) {
       // 이미지 참조가 존재하는 경우
       const canvas = document.createElement("canvas"); // 캔버스 엘리먼트 생성
       const ctx = canvas.getContext("2d"); // 캔버스 컨텍스트 가져오기
-      const img = new Image(); // 이미지 객체 생성
+      const img = new window.Image(); // 이미지 객체 생성 window 객체에서 가져오기
       img.src = image; // 이미지 객체에 이미지 URL 설정
 
-      // 이미지 로드 완료 후 실행
       img.onload = () => {
         // 이미지, 텍스트, 푸터 영역 패딩 및 간격 설정
         const padding = 5;
@@ -183,7 +168,7 @@ const ResultPage = () => {
           let testLine = ""; // 테스트 라인 저장 변수
           let currentY = y; // 현재 Y 좌표
           // 단어들을 순회하며 텍스트 출력
-          for (let word of words) {
+          for (const word of words) {
             testLine = line + word + " "; // 현재 라인에 단어 추가
             const metrics = ctx!.measureText(testLine); // 테스트 라인 너비 측정
             const testWidth = metrics.width; // 테스트 라인 너비
@@ -238,7 +223,7 @@ const ResultPage = () => {
         const combinedWidth = footerLogoSize + 5 + footerTextMetrics.width; // 로고 + 텍스트 너비 계산
         const footerX = canvasWidth - padding - combinedWidth; // 푸터 가로 우측 위치 계산 (수정)
         // 로고 이미지 추가
-        const logoImg = new Image();
+        const logoImg = new window.Image();
         logoImg.src = logoUrl;
         // 로고 이미지 로드 완료 후 실행
         logoImg.onload = () => {
@@ -270,11 +255,13 @@ const ResultPage = () => {
         // 로고 이미지 로드 실패 처리
         logoImg.onerror = () => {
           alert("로고 이미지 로드 실패");
+          return;
         };
       };
       // 이미지 로드 실패 처리
       img.onerror = () => {
         alert("이미지 로드 실패");
+        return;
       };
     } else {
       // 저장할 이미지 참조를 찾을 수 없을 경우
@@ -282,65 +269,55 @@ const ResultPage = () => {
     }
   };
 
-  // 공유 기능 함수
   const handleShare = async () => {
     if (navigator.share) {
-      // 공유 기능 지원 여부 확인
       try {
         await navigator.share({
-          // 공유 API 호출
           title: title,
           text: description,
-          url: window.location.href, // 현재 페이지 URL
+          url: window.location.href,
         });
       } catch (error) {
-        // 공유 오류 발생 시 처리
         console.error("Error sharing:", error);
         alert("공유하기가 취소되었거나 오류가 발생했습니다.");
       }
     } else {
-      // 공유 기능 미지원 시 알림
       alert("현재 브라우저에서는 공유 기능을 지원하지 않습니다.");
     }
   };
 
-  // 결과 페이지 UI 반환
   return (
     <div className="bg-sky-100 min-h-screen flex flex-col items-center justify-center text-center">
       <Head>
         <title>냥생뭐했니 - 결과</title>
       </Head>
-      {/* 결과 카드 */}
       <div className="max-w-md bg-white rounded-xl shadow-md overflow-hidden">
-        {/* 결과 이미지 */}
-        <img
+        <Image
           src={image}
           alt={title}
           className="w-full h-auto object-cover rounded-t-xl mb-4"
-          ref={imageRef} // 이미지 참조 설정
+          width={500}
+          height={300}
+          layout="responsive"
+          ref={imageRef}
         />
-        {/* 결과 제목 및 설명 */}
         <div className="px-6 py-4">
           <h1 className="text-xl font-bold text-gray-800 mb-2">{title}</h1>
           <p className="text-gray-700">{description}</p>
         </div>
-        {/* 버튼 컨테이너 */}
         <div className="mt-4 flex justify-center space-x-2 px-6 py-2">
-          {/* 공유하기 버튼 */}
           <button
             onClick={handleShare}
             className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
           >
             공유하기
           </button>
-          {/* 다시 하기 버튼 */}
           <button
             onClick={() => router.push("/question/1")}
             className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
           >
             다시하기
           </button>
-          {/* 결과 저장 버튼 */}
           <button
             onClick={handleSaveImage}
             className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
@@ -348,7 +325,6 @@ const ResultPage = () => {
             결과저장
           </button>
         </div>
-        {/* 히든 냥이 페이지 버튼 */}
         <div className="flex flex-col items-center mt-2 px-6 py-2">
           <button
             onClick={() => router.push("/nyangs")}
