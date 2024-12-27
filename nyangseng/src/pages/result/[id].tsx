@@ -36,6 +36,8 @@ const ResultPage = () => {
           data.results.find((result) => result.id === "result-not-found") || // 결과가 없으면 "result-not-found" 결과 설정 (예외처리)
           null // 결과가 없으면 null 설정
       );
+      // 결과페이지 진입 시 현재 페이지를 history에 replace하여 뒤로가기시 popstate 이벤트가 발생하도록 합니다.
+      history.replaceState(null, "", location.href);
     }
   }, [id]); // id 값이 변경될 때마다 실행
 
@@ -47,6 +49,23 @@ const ResultPage = () => {
       document.title = `냥생뭐했니 - 결과`;
     }
   }, [currentResult]); // currentResult가 변경될 때마다 useEffect hook을 다시 실행합니다.
+
+  // 뒤로가기 감지 및 처리
+  useEffect(() => {
+    // 뒤로가기 이벤트 핸들러 함수
+    const handlePopstate = () => {
+      // 뒤로가기 버튼 클릭 시, 시작 페이지로 이동
+      router.replace("/");
+    };
+
+    // popstate 이벤트 리스너 추가
+    window.addEventListener("popstate", handlePopstate);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("popstate", handlePopstate);
+    };
+  }, [router]);
 
   // 결과 데이터가 없는 경우 로딩 화면 표시
   if (!currentResult) {

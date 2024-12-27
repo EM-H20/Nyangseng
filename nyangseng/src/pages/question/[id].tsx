@@ -1,5 +1,6 @@
 // src/pages/question/[id].tsx
-import { useState, useEffect } from "react";
+
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import data from "@/utils/data.json";
 import ProgressBar from "@/components/ProgressBar";
@@ -39,8 +40,9 @@ const QuestionPage: React.FC = () => {
   // 마지막 질문의 선택 여부를 저장하는 state입니다.
   const [lastOptionSelected, setLastOptionSelected] = useState(false);
   // 마지막 질문 텍스트를 저장하는 state입니다.
-  // const [lastQuestionText, setLastQuestionText] = useState<string | null>(null); // 제거
   const [questionIndex, setQuestionIndex] = useState<number>(0);
+  // 페이지 로드 여부를 저장하는 state입니다.
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
 
   // useEffect hook을 사용하여 컴포넌트가 마운트되거나 id가 변경될 때 실행되는 코드를 정의합니다.
   useEffect(() => {
@@ -66,12 +68,7 @@ const QuestionPage: React.FC = () => {
       setProgress(progressPercentage);
       // 현재 질문이 마지막 질문인지 확인하고 state 업데이트
       setIsLastQuestion(Number(id) === totalQuestions);
-      // 마지막 질문일 경우 "냥생 뭐였니?" 텍스트로 설정하고, showResultButton, lastOptionSelected 초기화
-      // if (Number(id) === totalQuestions) { // 제거
-      //     setLastQuestionText("냥생 뭐였니?"); // 제거
-      // } else { // 제거
-      //     setLastQuestionText(null); // 제거
-      // } // 제거
+      setIsPageLoaded(true); // 페이지 로드 완료 설정
     }
     // 컴포넌트가 unmount 될 때 상태 초기화
     return () => {
@@ -89,6 +86,45 @@ const QuestionPage: React.FC = () => {
     }
   }, [currentQuestion]); // currentQuestion이 변경될 때마다 useEffect hook을 다시 실행합니다.
 
+  // 뒤로가기 감지 및 처리
+  useEffect(() => {
+    // 뒤로가기 이벤트 핸들러 함수
+    const handlePopstate = () => {
+      // 뒤로가기 버튼 클릭 시, 시작 페이지로 이동
+      router.replace("/");
+    };
+    // popstate 이벤트 리스너 추가
+    window.addEventListener("popstate", handlePopstate);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("popstate", handlePopstate);
+    };
+  }, [router]);
+
+  // 페이지 로드 후 새로고침 감지
+  useEffect(() => {
+    if (isPageLoaded) {
+      // 페이지 로드 이후 새로고침 발생시 시작 페이지로 이동
+      const handleBeforeunload = () => {
+        sessionStorage.setItem("reloaded", "true");
+      };
+
+      window.addEventListener("beforeunload", handleBeforeunload);
+
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeunload);
+      };
+    }
+  }, [isPageLoaded]);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("reloaded") === "true") {
+      router.replace("/");
+      sessionStorage.removeItem("reloaded");
+    }
+  }, [router]);
+
   // 옵션 클릭 시 실행되는 핸들러 함수입니다.
   const handleOptionClick = (type: string) => {
     // 선택한 type을 selectedTypes 배열에 추가합니다.
@@ -98,6 +134,8 @@ const QuestionPage: React.FC = () => {
       setShowResultButton(true);
       setLastOptionSelected(true); // 마지막 질문의 옵션 선택 여부 true
     } else {
+      // 다음 질문 페이지 이동 전 history push
+      history.pushState(null, "", `/question/${Number(id) + 1}`);
       router.push(`/question/${Number(id) + 1}`);
     }
   };
@@ -111,8 +149,10 @@ const QuestionPage: React.FC = () => {
     );
     // 결과가 존재하면 결과 페이지로 이동합니다.
     if (result) {
+      history.pushState(null, "", `/result/${result.id}`); // 결과 페이지 이동 전 history push
       router.push(`/result/${result.id}`);
     } else {
+      history.pushState(null, "", `/result/result-not-found`); // 예외 결과 페이지 이동 전 history push
       // 결과가 없을 경우 예외 결과 페이지로 이동합니다.
       router.push(`/result/result-not-found`);
     }
