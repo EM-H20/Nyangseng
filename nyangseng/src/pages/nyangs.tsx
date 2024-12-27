@@ -63,7 +63,7 @@ const NyangsPage = () => {
         {results.map((result) => (
           <div
             key={result.id}
-            className="m-4 p-4 border border-gray-200 rounded-md w-64"
+            className="m-4 p-4 border border-gray-200 rounded-md w-64 flex flex-col items-center" // flex 및 가운데 정렬 클래스 추가
           >
             <img
               src={result.image}
@@ -73,7 +73,10 @@ const NyangsPage = () => {
                 pointerEvents: "none",
               }}
             />
-            <h2 className="text-xl font-semibold">{result.title}</h2>
+            <h2 className="text-xl font-semibold text-center">
+              {result.title}
+            </h2>{" "}
+            {/* 가운데 정렬 클래스 추가 */}
           </div>
         ))}
       </div>
