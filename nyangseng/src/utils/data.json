@@ -150,7 +150,7 @@
     },
     {
       "id": "result9",
-      "title": "전생의 아름다운 음유시인",
+      "title": "전생의 음율의 음유시인",
       "description": "당신의 냥이는 전생에 아름다운 선율로 사람들을 매료시킨 음유시인이였을지도 몰라요!",
       "image": "/images/result9.png",
       "types": ["C", "E", "I", "L", "N", "Q", "T", "X", "0", "3"]
@@ -171,21 +171,21 @@
     },
     {
       "id": "result12",
-      "title": "환생의 왕족",
+      "title": "환생의 위대한 왕족",
       "description": "당신의 냥이는 왕족으로 태어나 세상을 다스릴지도 몰라요!",
       "image": "/images/result12.png",
       "types": ["C", "F", "I", "K", "N", "Q", "S", "W", "0", "3"]
     },
     {
       "id": "result13",
-      "title": "환생의 모험가",
+      "title": "환생의 개척자 모험가",
       "description": "당신의 냥이는 환생하여 새로운 모험을 떠날지도 몰라요!",
       "image": "/images/result13.png",
       "types": ["B", "D", "G", "J", "M", "P", "T", "X", "Y", "1"]
     },
     {
       "id": "result14",
-      "title": "환생의 예술가",
+      "title": "환생의 섬세한 예술가",
       "description": "당신의 냥이는 환생하여 예술적인 재능을 꽃피울지도 몰라요!",
       "image": "/images/result14.png",
       "types": ["A", "E", "H", "K", "N", "Q", "T", "V", "Z", "2"]

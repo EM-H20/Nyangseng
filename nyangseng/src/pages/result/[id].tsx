@@ -37,22 +37,35 @@ const ResultPage = () => {
 
   return (
     <div className="bg-sky-100 min-h-screen flex flex-col items-center justify-center text-center">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">{title}</h1>
-      <p className="text-gray-700 mb-4">{description}</p>
-      <img src={image} alt={title} className="max-w-xs mb-4 rounded-lg" />
-      <div className="flex flex-col items-center mt-4">
-        <button
-          onClick={() => router.push("/question/1")}
-          className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 mb-2"
-        >
-          다시 하기
-        </button>
-        <button
-          onClick={() => router.push("/nyangs")}
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
-        >
-          히든냥이
-        </button>
+      <div className="max-w-md bg-white rounded-xl shadow-md overflow-hidden">
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-auto object-cover rounded-t-xl mb-4"
+        />
+        <div className="px-6 py-4">
+          <h1 className="text-xl font-bold text-gray-800 mb-2">{title}</h1>
+          <p className="text-gray-700">{description}</p>
+        </div>
+        <div className="mt-4 flex justify-center space-x-2 px-6 py-2">
+          <button
+            onClick={() => router.push("/question/1")}
+            className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
+          >
+            다시 하기
+          </button>
+          <button className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">
+            공유하기
+          </button>
+        </div>
+        <div className="flex flex-col items-center mt-2 px-6 py-2">
+          <button
+            onClick={() => router.push("/nyangs")}
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300"
+          >
+            히든냥이
+          </button>
+        </div>
       </div>
     </div>
   );
