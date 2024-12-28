@@ -10,14 +10,15 @@ class MyDocument extends Document {
           {/* 구글 애드센스 코드 삽입 */}
           <script
             async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
             crossOrigin="anonymous"
-          />
+          ></script>
+          {/* 애드센스 페이지 수준 광고 코드 (선택 사항) */}
           <script
             dangerouslySetInnerHTML={{
               __html: `
                 (adsbygoogle = window.adsbygoogle || []).push({
-                  google_ad_client: "${process.env.NEXT_PUBLIC_ADSENSE_CLIENT}",
+                  google_ad_client: "ca-pub-YOUR_ADSENSE_ID",
                   enable_page_level_ads: true
                 });
               `,
