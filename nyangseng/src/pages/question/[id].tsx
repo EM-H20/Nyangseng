@@ -7,18 +7,16 @@ import ProgressBar from "@/components/ProgressBar";
 import React from "react";
 import Head from "next/head";
 
-// Option 인터페이스 정의: 질문의 선택지를 나타냅니다.
 interface Option {
-  id: string; // 옵션의 고유 ID
-  text: string; // 옵션의 텍스트 내용
-  type?: string; // 옵션의 타입 (결과 연결에 사용) - 선택 사항으로 변경
+  id: string;
+  text: string;
+  type?: string;
 }
 
-// Question 인터페이스 정의: 질문을 나타냅니다.
 interface Question {
-  id: number; // 질문의 고유 ID
-  text: string; // 질문의 텍스트 내용
-  options: Option[]; // 질문의 선택지 배열
+  id: number;
+  text: string;
+  options: Option[];
 }
 
 interface Result {
@@ -26,94 +24,63 @@ interface Result {
   title: string;
   description: string;
   image: string;
-  types: string[]; // 결과에 연결된 타입들
+  types: string[];
 }
 
-// QuestionPage 컴포넌트: 질문 페이지를 담당하는 React 컴포넌트입니다.
 const QuestionPage: React.FC = () => {
-  // useRouter hook을 사용하여 next/router 객체를 가져옵니다.
   const router = useRouter();
-  // router.query에서 질문 ID를 가져옵니다.
   const { id } = router.query;
-  // 현재 질문 상태를 저장하는 state입니다. 초기값은 null입니다.
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
-  // 프로그레스 바의 진행률을 저장하는 state입니다. 초기값은 0입니다.
   const [progress, setProgress] = useState(0);
-  // 선택한 타입들을 저장하는 state입니다. 초기값은 빈 배열입니다.
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-  // 마지막 질문인지 여부를 저장하는 state입니다.
   const [isLastQuestion, setIsLastQuestion] = useState(false);
-  // 결과 확인 버튼 표시 여부를 저장하는 state입니다.
   const [showResultButton, setShowResultButton] = useState(false);
-  // 마지막 질문의 선택 여부를 저장하는 state입니다.
   const [lastOptionSelected, setLastOptionSelected] = useState(false);
-  // 마지막 질문 텍스트를 저장하는 state입니다.
   const [questionIndex, setQuestionIndex] = useState<number>(0);
-  // 페이지 로드 여부를 저장하는 state입니다.
   const [isPageLoaded, setIsPageLoaded] = useState(false);
 
-  // useEffect hook을 사용하여 컴포넌트가 마운트되거나 id가 변경될 때 실행되는 코드를 정의합니다.
   useEffect(() => {
-    // id가 존재하면 실행합니다.
     if (id) {
-      // data.questions 배열에서 현재 id와 일치하는 질문을 찾습니다.
       const question = data.questions.find(
         (q) => q.id === Number(id)
       ) as Question;
-      // 찾은 질문으로 currentQuestion 상태를 업데이트합니다.
       setCurrentQuestion(question);
-      // 현재 질문의 인덱스를 찾습니다.
       const questionIndex = data.questions.findIndex(
         (q) => q.id === Number(id)
       );
       setQuestionIndex(questionIndex + 1);
-      // 모든 질문의 총 개수를 구합니다.
       const totalQuestions = data.questions.length;
-      // 프로그레스 바의 진행률을 계산합니다.
       const progressPercentage =
-        questionIndex === 0 ? 0 : ((questionIndex + 1) / totalQuestions) * 100; // 첫 질문에서 0%
-      // 계산된 진행률로 프로그레스 바 상태를 업데이트합니다.
+        questionIndex === 0 ? 0 : ((questionIndex + 1) / totalQuestions) * 100;
       setProgress(progressPercentage);
-      // 현재 질문이 마지막 질문인지 확인하고 state 업데이트
       setIsLastQuestion(Number(id) === totalQuestions);
-      setIsPageLoaded(true); // 페이지 로드 완료 설정
+      setIsPageLoaded(true);
     }
-    // 컴포넌트가 unmount 될 때 상태 초기화
     return () => {
       setShowResultButton(false);
       setLastOptionSelected(false);
     };
-  }, [id]); // id가 변경될 때마다 useEffect hook을 다시 실행합니다.
+  }, [id]);
 
-  // useEffect hook을 사용하여 currentQuestion이 변경될 때 실행되는 코드를 정의합니다.
   useEffect(() => {
-    // currentQuestion이 존재하면 실행합니다.
     if (currentQuestion) {
-      // Head 컴포넌트를 사용하여 페이지 title을 업데이트합니다.
       document.title = `냥생뭐했니 - 질문`;
     }
-  }, [currentQuestion]); // currentQuestion이 변경될 때마다 useEffect hook을 다시 실행합니다.
+  }, [currentQuestion]);
 
-  // 뒤로가기 감지 및 처리
   useEffect(() => {
-    // 뒤로가기 이벤트 핸들러 함수
     const handlePopstate = () => {
-      // 뒤로가기 버튼 클릭 시, 시작 페이지로 이동
       router.replace("/");
     };
-    // popstate 이벤트 리스너 추가
     window.addEventListener("popstate", handlePopstate);
 
-    // 컴포넌트 언마운트 시 이벤트 리스너 제거
     return () => {
       window.removeEventListener("popstate", handlePopstate);
     };
   }, [router]);
 
-  // 페이지 로드 후 새로고침 감지
   useEffect(() => {
     if (isPageLoaded) {
-      // 페이지 로드 이후 새로고침 발생시 시작 페이지로 이동
       const handleBeforeunload = () => {
         sessionStorage.setItem("reloaded", "true");
       };
@@ -133,59 +100,67 @@ const QuestionPage: React.FC = () => {
     }
   }, [router]);
 
-  // 옵션 클릭 시 실행되는 핸들러 함수입니다.
   const handleOptionClick = (type: string) => {
-    // 선택한 type을 selectedTypes 배열에 추가합니다.
     setSelectedTypes((prevTypes) => [...prevTypes, type]);
-    // 마지막 질문일 경우 결과 확인 버튼을 표시하고, 아닐경우 다음 질문으로 이동
+
     if (Number(id) === data.questions.length) {
       setShowResultButton(true);
-      setLastOptionSelected(true); // 마지막 질문의 옵션 선택 여부 true
+      setLastOptionSelected(true);
     } else {
-      // 다음 질문 페이지 이동 전 history push
       history.pushState(null, "", `/question/${Number(id) + 1}`);
       router.push(`/question/${Number(id) + 1}`);
     }
   };
 
-  // 결과 확인 버튼 클릭 시 실행되는 핸들러 함수입니다.
   const handleResultClick = () => {
-    // 마지막 질문일 경우 결과 계산 로직을 수행합니다.
-    // data.results 배열에서 selectedTypes의 모든 타입을 포함하는 결과를 찾습니다.
-    const result = data.results.find((r: Result) =>
-      selectedTypes.every((type) => r.types.includes(type))
-    );
-    // 결과가 존재하면 결과 페이지로 이동합니다.
-    if (result) {
-      history.pushState(null, "", `/result/${result.id}`); // 결과 페이지 이동 전 history push
-      router.push(`/result/${result.id}`);
+    const minMatchingTypes = 6; // 최소 일치 타입 개수 설정
+
+    // 일치하는 타입 개수를 세는 함수
+    const countMatchingTypes = (resultTypes: string[]) => {
+      return selectedTypes.filter((type) => resultTypes.includes(type)).length;
+    };
+
+    // 최소 일치 개수를 만족하는 결과 필터링
+    const matchingResults = data.results.filter((result: Result) => {
+      return countMatchingTypes(result.types) >= minMatchingTypes;
+    });
+
+    if (matchingResults.length > 0) {
+      // 일치하는 타입 개수가 많은 순서대로 정렬, 개수가 같으면 id가 작은순으로 정렬
+      matchingResults.sort((a, b) => {
+        const aMatchingCount = countMatchingTypes(a.types);
+        const bMatchingCount = countMatchingTypes(b.types);
+        if (aMatchingCount !== bMatchingCount) {
+          return bMatchingCount - aMatchingCount;
+        }
+        return (
+          Number(a.id.replace("result", "")) -
+          Number(b.id.replace("result", ""))
+        );
+      });
+      const bestResult = matchingResults[0];
+      history.pushState(null, "", `/result/${bestResult.id}`);
+      router.push(`/result/${bestResult.id}`);
     } else {
-      history.pushState(null, "", `/result/result-not-found`); // 예외 결과 페이지 이동 전 history push
-      // 결과가 없을 경우 예외 결과 페이지로 이동합니다.
+      history.pushState(null, "", `/result/result-not-found`);
       router.push(`/result/result-not-found`);
     }
   };
 
-  // currentQuestion이 null이면 로딩 메시지를 표시합니다.
   if (!currentQuestion) {
     return <div>Loading...</div>;
   }
 
-  // 현재 질문의 텍스트를 설정하고, 마지막 질문일 경우 lastQuestionText 상태값을 사용합니다.
   const questionText =
     isLastQuestion && showResultButton ? "냥생 뭐였니?" : currentQuestion.text;
-  // 현재 질문의 옵션을 추출합니다.
   const { options } = currentQuestion;
-  // 전체 질문 수
   const totalQuestions = data.questions.length;
 
-  // 컴포넌트의 UI를 반환합니다.
   return (
     <div className="bg-sky-100 min-h-screen flex flex-col items-center justify-center">
       <Head>
         <title>냥생뭐했니 - 질문</title>
       </Head>
-      {/* 프로그레스 바 컴포넌트 */}
       <div className="mb-4 w-[80%]">
         <div className="text-xl font-semibold text-gray-700 mb-2 text-center">
           {questionIndex} / {totalQuestions}
@@ -195,26 +170,22 @@ const QuestionPage: React.FC = () => {
           isLastQuestion={isLastQuestion && showResultButton}
         />
       </div>
-      {/* 질문 텍스트 */}
       <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
         {questionText}
       </h1>
-      {/* 옵션 버튼들을 감싸는 div */}
       <div className="flex flex-col items-center space-y-2 w-48">
-        {/* 마지막 질문의 옵션을 선택하지 않았을 경우 옵션들을 출력 */}
         {!lastOptionSelected &&
           options.map((option: Option) => (
             <button
               key={option.id}
               className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-300 break-words"
               style={{ width: "300px" }}
-              onClick={() => handleOptionClick(option.type ?? "")} // 옵션 클릭 시 핸들러 함수 실행
+              onClick={() => handleOptionClick(option.type ?? "")}
             >
               {option.text}
             </button>
           ))}
       </div>
-      {/* 마지막 질문이고 showResultButton이 true일 경우 결과 확인 버튼을 표시 */}
       {isLastQuestion && showResultButton && (
         <button
           onClick={handleResultClick}
@@ -228,5 +199,4 @@ const QuestionPage: React.FC = () => {
   );
 };
 
-// QuestionPage 컴포넌트를 export합니다.
 export default QuestionPage;
